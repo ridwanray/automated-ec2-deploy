@@ -17,27 +17,29 @@ jobs:
       SECRET_KEY: samplesecret####
       ENVIRONMENT: dev
       CLIENT_URL: http://localhost:3000
-      AMQP_URL: amqps://randomearabbiturl
+      AMQP_URL: amqps://hctzbmybamqps://hctzbmyb
       SMTP_HOST: smtp.smtp.com
       EMAIL_HOST_USER: maneger@example.com
       EMAIL_HOST_PASSWORD: some-pass
       SENDGRID_API_KEY: some-apih
+      RABBITMQ_URL: amqps://hctzbmyb
 
 
-    services:
-      postgres:
-        image: 'postgres:alpine'
-        env:
-          POSTGRES_USER: db_user
-          POSTGRES_PASSWORD: db_pass
-          POSTGRES_DB: test_database
-        volumes:
-          - 'db-data:/var/lib/postgresql/data'
-        ports:
-          - '5432:5432'
-        options: >-
-          --health-cmd pg_isready --health-interval 10s --health-timeout 5s
-          --health-retries 5
+
+    # services:
+    #   postgres:
+    #     image: 'postgres:alpine'
+    #     env:
+    #       POSTGRES_USER: db_user
+    #       POSTGRES_PASSWORD: db_pass
+    #       POSTGRES_DB: test_database
+    #     volumes:
+    #       - 'db-data:/var/lib/postgresql/data'
+    #     ports:
+    #       - '5432:5432'
+    #     options: >-
+    #       --health-cmd pg_isready --health-interval 10s --health-timeout 5s
+    #       --health-retries 5
 
     steps:
       - uses: actions/checkout@v2
@@ -46,27 +48,27 @@ jobs:
         with:
           python-version: '3.10.x'
 
-      - name: Install Dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r app/requirements/dev.txt
+      # - name: Install Dependencies
+      #   run: |
+      #     python -m pip install --upgrade pip
+      #     pip install -r app/requirements/dev.txt
 
-      - name: Run migrations
+      # - name: Run migrations
       
-        run: |
-          python app/manage.py makemigrations
-          python app/manage.py migrate
+      #   run: |
+      #     python app/manage.py makemigrations
+      #     python app/manage.py migrate
 
-      - name: Run Tests
-        run: |
-          cd app
-          pytest 
+      # - name: Run Tests
+      #   run: |
+      #     cd app
+      #     pytest 
         
-      # - name: Push to server and deploy
-      # uses: appleboy/ssh-action@master
-      # with:
-      #   host: ${{ secrets.DEV_HOST }}
-      #   USERNAME: ${{ secrets.DEV_USERNAME }}
-      #   PORT: ${{ secrets.PORT }}
-      #   KEY: ${{ secrets.DEV_SSHKEY }}
-      #   script: cd ${{ secrets.DEV_PATH }} && ls && git pull && docker compose up --build -d
+      - name: Push to server and deploy
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        USERNAME: ${{ secrets.SERVER_USERNAME }}
+        # PORT: ${{ secrets.SERVER_PORT }}
+        KEY: ${{ secrets.SERVER_SSHKEY }}
+        script: cd ${{ secrets.PROJECT_PATH }} && git pull && docker-compose --env-file .env -f docker-compose.prod.yml up
