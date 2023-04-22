@@ -43,10 +43,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python 3.10.x
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.10.x'
+      # - name: Set up Python 3.10.x
+      #  uses: actions/setup-python@v2
+      #  with:a
+      #    python-version: '3.10.x'
 
       # - name: Install Dependencies
       #   run: |
@@ -65,10 +65,10 @@ jobs:
       #     pytest 
         
       - name: Push to server and deploy
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SERVER_HOST }}
-        USERNAME: ${{ secrets.SERVER_USERNAME }}
-        # PORT: ${{ secrets.SERVER_PORT }}
-        KEY: ${{ secrets.SERVER_SSHKEY }}
-        script: cd ${{ secrets.PROJECT_PATH }} && git pull && docker-compose --env-file .env -f docker-compose.prod.yml up
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          USERNAME: ${{ secrets.SERVER_USERNAME }}
+          # PORT: ${{ secrets.SERVER_PORT }}
+          KEY: ${{ secrets.SERVER_SSHKEY }}
+          script: cd ${{ secrets.PROJECT_PATH }} && git pull && docker-compose --env-file .env -f docker-compose.prod.yml up
