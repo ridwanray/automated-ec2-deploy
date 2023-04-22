@@ -1,7 +1,7 @@
-name: Deploy to ECR
+name: Build and Push Image to ECR
 
 on:
- 
+
   push:
     branches: [ develop ]
 
