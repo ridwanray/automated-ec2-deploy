@@ -12,7 +12,7 @@ services:
     ports:
       - '8000:8000'
     env_file:
-      - ./.env
+      --envfile
     restart: unless-stopped
 
   celery:
