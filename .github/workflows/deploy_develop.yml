@@ -65,10 +65,10 @@ jobs:
       #     pytest 
         
       - name: Push to server and deploy
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SERVER_HOST }}
-        USERNAME: ${{ secrets.SERVER_USERNAME }}
-        # PORT: ${{ secrets.SERVER_PORT }}
-        KEY: ${{ secrets.SERVER_SSHKEY }}
-        script: cd ${{ secrets.PROJECT_PATH }} && git pull && docker-compose --env-file .env -f docker-compose.prod.yml up -d
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          USERNAME: ${{ secrets.SERVER_USERNAME }}
+          # PORT: ${{ secrets.SERVER_PORT }}
+          KEY: ${{ secrets.SERVER_SSHKEY }}
+          script: cd ${{ secrets.PROJECT_PATH }} && git pull && docker-compose --env-file .env -f docker-compose.prod.yml up -d
