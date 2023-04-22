@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: docker/prod/Dockerfile
-    image: 478511707046.dkr.ecr.us-east-1.amazonaws.com/django-api
+    image: ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/django-api
     command: gunicorn -w 4 core.wsgi -b 0.0.0.0:8000 --timeout 420
     volumes:
       - ./app:/app
@@ -13,6 +13,27 @@ services:
       - '8000:8000'
     # env_file:
     #   - ./.env
+    environment:
+      ENVIRONMENT: ${ENVIRONMENT}
+      DEBUG: ${DEBUG}
+      SECRET_KEY: ${SECRET_KEY}
+      SQL_ENGINE : ${SQL_ENGINE}
+      DATABASE_URL: ${DATABASE_URL}
+      REDIS_HOST: ${REDIS_HOST}
+      ALLOW_EMPTY_PASSWORD: ${ALLOW_EMPTY_PASSWORD}
+      REDIS_PORT: ${REDIS_PORT}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      REDIS_URL: ${REDIS_URL}
+      FLOWER_BASIC_AUTH: ${FLOWER_BASIC_AUTH}
+      APP_NAME: ${APP_NAME}
+      SMTP_HOST: ${SMTP_HOST}
+      EMAIL_HOST_USER: ${EMAIL_HOST_USER}
+      EMAIL_HOST_PASSWORD: ${EMAIL_HOST_PASSWORD}
+      SENDER_EMAIL: ${SENDER_EMAIL}
+      RABBITMQ_URL: ${RABBITMQ_URL}
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS}
+      AWS_ACCOUNT_ID: ${AWS_ACCOUNT_ID}
+
     restart: unless-stopped
 
   celery:
