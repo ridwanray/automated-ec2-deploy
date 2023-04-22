@@ -2,7 +2,7 @@
 This guide offers hands-on experience in deploying a Django API to an AWS EC2 instance.
 
 Although the guide uses an EC2 instance, the knowledge gained here 
-can be transferred to any server instance
+can be transferred to any server instance.
 
 ## Tools & Services:
 - Django & DRF : for building the APIs
