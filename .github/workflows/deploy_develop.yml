@@ -4,7 +4,6 @@ on:
   workflow_run:
     workflows: ["Deploy to ECR"]
     types:
-      - completed
       - success
 
 jobs:
