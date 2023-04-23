@@ -16,7 +16,7 @@ can be transferred to any server instance
 - PostgreSQL: Relational DB
 
 
-## By the end of this tutorial
+## By the end of this tutorial 
 
 - We would be able to deploy a Django api running at ap1.example.com
 - Flower dashboard for monitoring celery background task at dashboard.example.com
