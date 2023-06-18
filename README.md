@@ -96,9 +96,9 @@ Access docs:
 ```sh
 http://localhost:8000/api/v1/doc
 ```
+## Deployed API
 
 ![Screenshot](screenshot1.png)
-
 
 ## Deployed API
 ![Screenshot](screenshot2.png)
